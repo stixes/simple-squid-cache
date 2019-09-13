@@ -6,6 +6,8 @@ Simple to set up, high performing datasaving proxy for home users, build using K
 
 So, in these days of multi Mbit internet connections and fast cpu's, why would you want a caching proxy? More and more, people are changing to mobile connections or similarly connections with fluctuating bandwidth. Often, such connections are also datalimited in some fashion, so it makes sense to cache data and lessen the Mbit requirement on your internet connection.
 
+This is amplified by users of VPN connections, or even TOR routed connections. 
+
 Moreover, today many sites we visit are the same, and those sites use a great number of static content, which is still retrieved via "old fashioned" HTTP connections.
 
 Tuning Squid to allow Massive cache sizes, both on disk and in memory can allow for the reuse of many of such resources, improving the performance of your network connection.
@@ -26,10 +28,12 @@ or using host mapping:
 
     docker run -d -v /opt/dockerstorage/squid-cache:/var/cache/squid -p 3128:3128 stixes/simple-squid-cache
     
-The cache size is controlled using two environment variables:
+The cache size is controlled using environment variables:
 
 * SQUID\_DISK\_SIZE\_MB - The size in MB for the on disk size. Default is 8192 (8gb). Bigger is good here.
 * SQUID\_MEM\_SIZE\_MB - The amount of memory used to cache most recent request. Default is 1024 (1Gb). This should be adjusted to fit your server.
+* SQUID\_PARENT\_HOST - Hostname of a parent proxy, Corporate, vpn or even a local Tor gateway can be used. Leave blank to connect directly from this proxy.
+* SQUID\_PARENT\_PORT - Port of the parent proxy, defaults to 3128
 
 Thats it. It's simple.
 

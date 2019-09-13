@@ -3,6 +3,8 @@ FROM alpine:latest
 ENV SQUID_CACHE_DIR=/var/cache/squid
 ENV SQUID_DISK_SIZE_MB=8192
 ENV SQUID_MEM_SIZE_MB=1024
+ENV SQUID_PARENT_HOST=
+ENV SQUID_PARENT_PORT=3128
 
 ADD entrypoint.sh /sbin/entrypoint.sh
 RUN apk add --no-cache squid gettext && \

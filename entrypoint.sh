@@ -7,6 +7,10 @@ SQUID_USER=squid
 build_config() {
   if [ ! -f "/etc/squid/squid.conf" ]; then
     envsubst < /squid.conf.tmpl > /etc/squid/squid.conf
+    if [ "${SQUID_PARENT_HOST}" != "" ]; then
+      echo "cache_peer ${SQUID_PARENT_HOST} parent ${SQUID_PARENT_PORT} 0 no-query no-digest" >> /etc/squid/squid.conf
+      echo "never_direct allow all" >> /etc/squid/squid.conf
+    fi
   fi
 }
 
